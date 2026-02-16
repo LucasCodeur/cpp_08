@@ -6,7 +6,7 @@
 /*   By: lud-adam <lud-adam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 11:00:42 by lud-adam          #+#    #+#             */
-/*   Updated: 2026/02/16 17:09:11 by lud-adam         ###   ########.fr       */
+/*   Updated: 2026/02/16 17:24:18 by lud-adam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,41 +65,35 @@ void	Span::addNumber(int toAdd)
 	return ;
 }
 
-// int	Span::shortestSpan()
-// {
-// 	int	i = 0;
-// 	int	j = 1;
-// 	int	size = this->Integers.size();
-// 	int	minDist = std::numeric_limits<int>::max();
-// 	while (i < size - 1)
-// 	{
-// 		while (j < size - 1)
-// 		{
-// 			if (std::abs(std::abs(this->Integers[j]) - std::abs(this->Integers[j + 1])) < minDist)
-// 				minDist = std::abs(this->Integers[j] - this->Integers[j + 1]);
-// 			std::cout << "Min dist: " << minDist << std::endl;
-// 			std::cout << "j: " << this->Integers[j] << std::endl;
-// 			std::cout << "j: " << this->Integers[j + 1] << std::endl;
-// 			j++;
-// 		}
-// 		i++;
-// 		j = 0;
-// 	}
-// 	return (0);
-// }
+int	Span::shortestSpan()
+{
+	int	i = 0;
+	int	j = 1;
+	int	size = this->Integers.size();
+	int	minDist = std::numeric_limits<int>::max();
+	while (i < size - 1)
+	{
+		while (j < size - 1)
+		{
+			if ((this->Integers[j] - this->Integers[j + 1]) < minDist)
+				minDist = std::abs(this->Integers[j] - this->Integers[j + 1]);
+			std::cout << "Min dist: " << minDist << std::endl;
+			std::cout << "j: " << this->Integers[j] << std::endl;
+			std::cout << "j: " << this->Integers[j + 1] << std::endl;
+			j++;
+		}
+		i++;
+		j = 0;
+	}
+	return (0);
+}
 
 int	Span::longestSpan()
 {
-	// std::cout << "begin: " << *this->Integers.begin() << std::endl;
-	// std::cout << "end: " << *(--this->Integers.end()) << std::endl;
+	if (this->Integers.size() < 2)
+		throw std::runtime_error("Longest Span: not enough numbers");
 	this->Integers.sort();
-	// for (std::list<int>::iterator it = this->Integers.begin(); it != this->Integers.end(); ++it)
-	// {
-	//   std::cout << *it << std::endl;
-	// }
 	std::list<int>::iterator it_begin = this->Integers.begin();
-	// std::cout << "begin: " << *it_begin << std::endl;
 	std::list<int>::iterator it_end = this->Integers.end();
-	// std::cout << "end: " << *it_end << std::endl;
 	return (std::abs(*it_begin - *(--it_end)));
 }

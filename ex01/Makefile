@@ -14,12 +14,13 @@
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -MMD -std=c++98
 CFLAGS_DEBUG = -Wall -Wextra -MMD -g3 -D DEBUG=1
-NAME = Ex00
+NAME = Ex01
 P_SRC = src/
 P_OBJ = .obj/
 P_INC = inc/
 
 SRC = main.cpp \
+	  Span.cpp \
 
 SRCS = \
 	$(addprefix $(P_SRC), $(SRC)) \

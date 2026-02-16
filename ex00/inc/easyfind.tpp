@@ -10,4 +10,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-template <typename T, typename int>
+#include <stdexcept>
+
+template <typename T>
+int	easyfind(T integers, int toFind)
+{
+	for (typename T::iterator it = integers.begin(); it != integers.end(); ++it)
+	{
+		if (*it == toFind)
+			return (*it);
+	}
+	throw std::runtime_error("Int not find");
+	return (0);
+}
+
+// template <typename T>
+// int	easyfind(const T integers, const int toFind)
+// {
+// 	for (int i = 0; i < integers.size(); i++)
+// 	{
+// 		int	temp = integers.pop(); 
+// 		if (temp == toFind)
+// 			return (temp);
+// 	}
+// 	throw std::runtime_error("Int not find");
+// 	return (0);
+// }

@@ -16,18 +16,43 @@
 #include "Span.hpp"
 
 static void	t_add_number(void);
-// static void	t_smallest_number(void);
-// static void	t_iterators(void);
+static void	t_smallest_number(void);
 static void	t_longest_number(void);
+static void t_add_multiple_numbers(void);
 
 int main( void )
 {
 	// t_add_number();
 	// t_smallest_number();
 	// t_iterators();
-	t_longest_number();
+	// t_longest_number();
+	// t_insert();
+	t_add_multiple_numbers();
 
 	return 0;
+}
+
+static void t_add_multiple_numbers(void)
+{
+	std::cout << "--------------------------------------------------------" << std::endl;
+	std::cout << "Test : t_add_multiple_numbers " << std::endl;
+	try 
+	{
+		Span	test(20000);
+		test.addMultipleNumbers(20000, 1);
+
+		std::cout << "PRINT BEFORE" << std::endl;
+		for (std::vector<int>::iterator it = test.Integers.begin(); it != test.Integers.end(); ++it)
+		{
+		  std::cout << *it << std::endl;
+		}
+		std::cout << "The longest span: \n" << test.longestSpan() << std::endl;
+		std::cout << "The shortest span: \n" << test.shortestSpan() << std::endl;
+	}
+	catch (std::exception &e)
+	{
+		std::cout << "Error: " << e.what() << std::endl;
+	}
 }
 
 static void	t_longest_number(void)
@@ -40,10 +65,12 @@ static void	t_longest_number(void)
 
 		test.addNumber(-1);
 		test.addNumber(2);
-		// test.addNumber(3);
+		test.addNumber(3);
+		test.addNumber(-1000);
+		test.addNumber(-3000);
 
 		std::cout << "PRINT BEFORE" << std::endl;
-		for (std::list<int>::iterator it = test.Integers.begin(); it != test.Integers.end(); ++it)
+		for (std::vector<int>::iterator it = test.Integers.begin(); it != test.Integers.end(); ++it)
 		{
 		  std::cout << *it << std::endl;
 		}
@@ -55,44 +82,6 @@ static void	t_longest_number(void)
 	}
 }
 
-static void	t_iterators(void)
-{
-	std::cout << "--------------------------------------------------------" << std::endl;
-	std::cout << "Test : t_iterators" << std::endl;
-	try 
-	{
-		Span	test(5);
-
-		test.addNumber(1);
-		test.addNumber(10);
-		test.addNumber(-20);
-		test.addNumber(200);
-		test.addNumber(5);
-
-		for (std::list<int>::iterator it = test.Integers.begin(); it != test.Integers.end(); ++it)
-		{
-		  std::cout << *it << std::endl;
-		}
-		std::cout << "WITH DO WHILE" << std::endl;
-		std::list<int>::iterator it = test.Integers.begin();
-		std::list<int>::iterator* ptr;
-		ptr = &it;
-		std::cout << *it << std::endl;
-		do 
-		{
-			++it;
-			std::cout << *it << std::endl;
-			// std::cout << &it << std::endl;
-		}
-		while (it != ptr);
-	}
-	catch (std::exception &e)
-	{
-		std::cout << "Error: " << e.what() << std::endl;
-	}
-
-}
-
 static void	t_smallest_number(void)
 {
 	std::cout << "--------------------------------------------------------" << std::endl;
@@ -101,16 +90,16 @@ static void	t_smallest_number(void)
 	{
 		Span	test(5);
 
-		test.addNumber(1);
 		test.addNumber(10);
-		test.addNumber(-20);
-		test.addNumber(200);
-		test.addNumber(5);
-		for (std::list<int>::iterator it = test.Integers.begin(); it != test.Integers.end(); ++it)
+		test.addNumber(-5);
+		test.addNumber(20);
+		// test.addNumber(200);
+		test.addNumber(-1);
+		for (std::vector<int>::iterator it = test.Integers.begin(); it != test.Integers.end(); ++it)
 		{
 		  std::cout << *it << std::endl;
 		}
-		// std::cout << "The smallest span: " << test.shortestSpan() << std::endl;
+		std::cout << "The smallest span: " << test.shortestSpan() << std::endl;
 	}
 	catch (std::exception &e)
 	{
@@ -130,7 +119,7 @@ static void	t_add_number(void)
 		test.addNumber(2147483647);
 		test.addNumber(-2147483648);
 		test.addNumber(-2147483648);
-		for (std::list<int>::iterator it = test.Integers.begin(); it != test.Integers.end(); ++it)
+		for (std::vector<int>::iterator it = test.Integers.begin(); it != test.Integers.end(); ++it)
 		{
 		  std::cout << *it << std::endl;
 		}

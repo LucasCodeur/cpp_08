@@ -28,6 +28,7 @@ class Span
 		~Span(void);
 
 		void addNumber(int toAdd);
+		void addMultipleNumbers(unsigned int numbers, int beginRange);
 		int	shortestSpan();
 		int	longestSpan();
 	private:

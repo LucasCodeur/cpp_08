@@ -67,33 +67,46 @@ void	Span::addNumber(int toAdd)
 
 int	Span::shortestSpan()
 {
-	int	i = 0;
-	int	j = 1;
-	int	size = this->Integers.size();
+	if (this->Integers.size() < 2)
+		throw std::runtime_error("Smallest Span: not enough numbers");
+
 	int	minDist = std::numeric_limits<int>::max();
-	while (i < size - 1)
+	int	compute = 0;
+
+	std::vector<int> temp = this->Integers;
+	std::sort(temp.begin(), temp.end());
+	int	size = temp.size(); 
+	for (int i = 1; i < size; i++)
 	{
-		while (j < size - 1)
-		{
-			if ((this->Integers[j] - this->Integers[j + 1]) < minDist)
-				minDist = std::abs(this->Integers[j] - this->Integers[j + 1]);
-			std::cout << "Min dist: " << minDist << std::endl;
-			std::cout << "j: " << this->Integers[j] << std::endl;
-			std::cout << "j: " << this->Integers[j + 1] << std::endl;
-			j++;
-		}
-		i++;
-		j = 0;
+		compute = temp[i] - temp[i - 1];
+		if (compute < minDist)
+			minDist = compute;
 	}
-	return (0);
+	return (minDist);
 }
 
 int	Span::longestSpan()
 {
 	if (this->Integers.size() < 2)
 		throw std::runtime_error("Longest Span: not enough numbers");
-	this->Integers.sort();
-	std::list<int>::iterator it_begin = this->Integers.begin();
-	std::list<int>::iterator it_end = this->Integers.end();
-	return (std::abs(*it_begin - *(--it_end)));
+	std::vector<int> temp = this->Integers;
+	std::sort(temp.begin(), temp.end());
+	std::vector<int>::iterator it_begin = temp.begin();
+	std::vector<int>::iterator it_end = temp.end();
+	return (*(--it_end) - *it_begin);
 }
+
+void Span::addMultipleNumbers(unsigned int numbers, int beginRange)
+{
+	if (this->maxNumbers == 0)
+		throw std::runtime_error("Maximum numbers reach") ;
+    std::vector<int> temp;
+	for (unsigned int i = 0; i < numbers && this->maxNumbers > 0; i++)
+	{
+		temp.push_back(beginRange);
+		beginRange++;
+		this->maxNumbers--;
+	}
+	this->Integers.insert(this->Integers.begin(), temp.begin(), temp.end());
+}
+

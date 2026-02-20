@@ -11,8 +11,10 @@
 /* ************************************************************************** */
 
 #include <stack>
+#include <iostream>
 
-class MutantStack : public std::stack<int>
+template < typename T, class container=std::deque<T> >
+class MutantStack : public std::stack<T>
 {
 	public:
 		MutantStack()
@@ -23,27 +25,30 @@ class MutantStack : public std::stack<int>
 		{
 			std::cout << "MutantStack Parameterized Constructor called" << std::endl;
 		}
-		MutantStack(const MutantStack& other)
+		MutantStack(const MutantStack& other) : std::stack<T>(other)
 		{
 			std::cout << "MutantStack Copy Constructor called" << std::endl;
-			if (this != &other)
-			{
-				*this = other;
-			}
 		}
 		MutantStack& operator=(const MutantStack& other)
 		{
 			if (this != &other)
 			{
-				*this = other;
+				this->c = other.c;
 			}
 			return (*this);
 		}
 		~MutantStack(void)
 		{
-			std::cout << "MutantStack Copy Destructor called" << std::endl;
+			std::cout << "MutantStack Destructor called" << std::endl;
+		}
+		typedef typename container::iterator iterator;
+		iterator begin()
+		{
+			return this->c.begin();
+		}
+		iterator end()
+		{
+			return this->c.end();
 		}
 	private:
 };
-
-

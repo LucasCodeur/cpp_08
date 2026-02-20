@@ -20,24 +20,27 @@
 Span::Span()
 {
 	std::cout << "Span Constructor called" << std::endl;
-	this->maxNumbers = 5;
+	this->N = 5;
 }
 
-Span::Span(unsigned int maxNumbers)
+Span::Span(unsigned int N)
 {
-	std::cout << "Span Constructor called" << std::endl;
-	if (maxNumbers > this->Integers.max_size())
-		throw std::runtime_error("MaxNumbers is to high");
-	this->maxNumbers = maxNumbers;
+	std::cout << "Span Parameterized Constructor called" << std::endl;
+
+	if (N > this->Integers.max_size())
+		throw std::runtime_error("Max size");
+
+	this->N = N;
 }
 
 Span::Span(const Span& other)
 {
 	std::cout << "Span Copy Constructor called" << std::endl;
+
 	if (this != &other)
 	{
 		this->Integers = other.Integers;
-		this->maxNumbers = other.maxNumbers;
+		this->N = other.N;
 	}
 }
 
@@ -46,8 +49,9 @@ Span& Span::operator=(const Span& other)
 	if (this != &other)
 	{
 		this->Integers = other.Integers;
-		this->maxNumbers = other.maxNumbers;
+		this->N = other.N;
 	}
+
 	return (*this);
 }
 
@@ -58,55 +62,68 @@ Span::~Span()
 
 void	Span::addNumber(int toAdd)
 {
-	if (this->maxNumbers == 0)
+	if (this->N == 0)
 		throw std::runtime_error("Maximum numbers reach") ;
+
 	this->Integers.push_back(toAdd);
-	this->maxNumbers--;
-	return ;
+	this->N--;
 }
 
-int	Span::shortestSpan()
+unsigned int	Span::shortestSpan()
 {
 	if (this->Integers.size() < 2)
 		throw std::runtime_error("Smallest Span: not enough numbers");
 
-	int	minDist = std::numeric_limits<int>::max();
-	int	compute = 0;
+	unsigned int		minDist = std::numeric_limits<int>::max();
+	unsigned int		compute = 0;
+	std::vector<int>	temp = this->Integers;
 
-	std::vector<int> temp = this->Integers;
 	std::sort(temp.begin(), temp.end());
+
 	int	size = temp.size(); 
+
 	for (int i = 1; i < size; i++)
 	{
-		compute = temp[i] - temp[i - 1];
+		compute = static_cast<unsigned int>(temp[i]) - static_cast<unsigned int>(temp[i - 1]);
 		if (compute < minDist)
 			minDist = compute;
 	}
 	return (minDist);
 }
 
-int	Span::longestSpan()
+unsigned int	Span:: longestSpan()
 {
 	if (this->Integers.size() < 2)
-		throw std::runtime_error("Longest Span: not enough numbers");
+		throw std::runtime_error("unsigned intest Span: not enough numbers");
+
 	std::vector<int> temp = this->Integers;
+
 	std::sort(temp.begin(), temp.end());
+
 	std::vector<int>::iterator it_begin = temp.begin();
 	std::vector<int>::iterator it_end = temp.end();
-	return (*(--it_end) - *it_begin);
+
+	unsigned int	result =  static_cast<unsigned int>(*(--it_end)) - static_cast<unsigned int>(*it_begin);
+	return (result);
 }
 
 void Span::addMultipleNumbers(unsigned int numbers, int beginRange)
 {
-	if (this->maxNumbers == 0)
-		throw std::runtime_error("Maximum numbers reach") ;
-    std::vector<int> temp;
-	for (unsigned int i = 0; i < numbers && this->maxNumbers > 0; i++)
+	std::vector<int> temp;
+
+	if (numbers == 0)
+		throw std::runtime_error("numbers have to be at least 1");
+	else if (numbers > 20000)
+		throw std::runtime_error("numbers is too high");
+	for (unsigned int i = 0; i < numbers; i++)
 	{
+		if (this->N == 0)
+			throw std::runtime_error("Maximum numbers reach") ;
 		temp.push_back(beginRange);
 		beginRange++;
-		this->maxNumbers--;
+		this->N--;
 	}
+
 	this->Integers.insert(this->Integers.begin(), temp.begin(), temp.end());
 }
 

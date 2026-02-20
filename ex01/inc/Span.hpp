@@ -18,7 +18,7 @@
 class Span
 {
 	public:
-		unsigned int 		maxNumbers;
+		unsigned int 		N;
 		std::vector<int>	Integers;
 
 		Span();
@@ -27,10 +27,10 @@ class Span
 		Span& operator=(const Span& other);
 		~Span(void);
 
-		void addNumber(int toAdd);
-		void addMultipleNumbers(unsigned int numbers, int beginRange);
-		int	shortestSpan();
-		int	longestSpan();
+		void			addNumber(int toAdd);
+		void			addMultipleNumbers(unsigned int numbers, int beginRange);
+		unsigned int	shortestSpan();
+		unsigned int 	longestSpan();
 	private:
 };
 

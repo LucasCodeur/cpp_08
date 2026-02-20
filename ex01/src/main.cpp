@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <climits>
 #include <vector>
 #include <iostream>
 
@@ -22,12 +23,10 @@ static void t_add_multiple_numbers(void);
 
 int main( void )
 {
-	// t_add_number();
-	// t_smallest_number();
-	// t_iterators();
-	// t_longest_number();
-	// t_insert();
 	t_add_multiple_numbers();
+	t_longest_number();
+	t_smallest_number();
+	t_add_number();
 
 	return 0;
 }
@@ -38,8 +37,8 @@ static void t_add_multiple_numbers(void)
 	std::cout << "Test : t_add_multiple_numbers " << std::endl;
 	try 
 	{
-		Span	test(20000);
-		test.addMultipleNumbers(20000, 1);
+		Span	test(10);
+		test.addMultipleNumbers(1, 10000);
 
 		std::cout << "PRINT BEFORE" << std::endl;
 		for (std::vector<int>::iterator it = test.Integers.begin(); it != test.Integers.end(); ++it)
@@ -68,13 +67,15 @@ static void	t_longest_number(void)
 		test.addNumber(3);
 		test.addNumber(-1000);
 		test.addNumber(-3000);
+		test.addNumber(INT_MIN);
+		test.addNumber(INT_MAX);
 
 		std::cout << "PRINT BEFORE" << std::endl;
 		for (std::vector<int>::iterator it = test.Integers.begin(); it != test.Integers.end(); ++it)
 		{
 		  std::cout << *it << std::endl;
 		}
-		std::cout << "The longest span: \n" << test.longestSpan() << std::endl;
+		std::cout << "The longest span: " << test.longestSpan() << std::endl;
 	}
 	catch (std::exception &e)
 	{
@@ -85,7 +86,7 @@ static void	t_longest_number(void)
 static void	t_smallest_number(void)
 {
 	std::cout << "--------------------------------------------------------" << std::endl;
-	std::cout << "Test : t_add_number " << std::endl;
+	std::cout << "Test : t_smallest_number " << std::endl;
 	try 
 	{
 		Span	test(5);
@@ -93,8 +94,10 @@ static void	t_smallest_number(void)
 		test.addNumber(10);
 		test.addNumber(-5);
 		test.addNumber(20);
-		// test.addNumber(200);
+		test.addNumber(200);
 		test.addNumber(-1);
+		// test.addNumber(INT_MIN);
+		// test.addNumber(INT_MAX);
 		for (std::vector<int>::iterator it = test.Integers.begin(); it != test.Integers.end(); ++it)
 		{
 		  std::cout << *it << std::endl;
@@ -119,6 +122,7 @@ static void	t_add_number(void)
 		test.addNumber(2147483647);
 		test.addNumber(-2147483648);
 		test.addNumber(-2147483648);
+		// test.addNumber(-2147483648);
 		for (std::vector<int>::iterator it = test.Integers.begin(); it != test.Integers.end(); ++it)
 		{
 		  std::cout << *it << std::endl;
